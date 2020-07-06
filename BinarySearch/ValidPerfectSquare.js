@@ -1,6 +1,7 @@
 var isPerfectSquare = function(num) {
-    for(let i = 2; i < num; i++) {
-        if(num/i === i) return true
-    } 
+    let root = Math.floor(Math.sqrt(num))
+    
+    if(root * root === num) return true
+    
     return false
 };
