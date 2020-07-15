@@ -1,8 +1,6 @@
-var searchInsert = function(nums, target) {
-    
+var searchInsert = function(nums, target) {  
     let high = nums.length -1
-    let low = 0
-    
+    let low = 0    
     while(low <= high) {
         let middle = Math.floor((high+low)/2)
         
@@ -13,9 +11,8 @@ var searchInsert = function(nums, target) {
         } else if (target < nums[middle]) {
             high = middle - 1
         }
-    }
-    
-    return -1
+    }  
+    return low
 };
 
 let sampleArr = [-1,0,3,5,9,12]
