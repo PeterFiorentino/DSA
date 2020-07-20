@@ -1,32 +1,22 @@
 function coinChange(coins, amount) {
-    if(amount === 0) {
-        return 0
-    }
-    if(!coins.length) {
-        return -1
-    }
-    if(amount < coins.length) {
-        coinsChange(coins.slice(0, -1), amount)
-    }
+    coins.sort((a, b) => b - a);
 
-    const coin = coins[coins.length - 1]
-    let coinsUsed = Math.floor(amount/coin)
-    let remainder = amount % coin
-    const oneSmallerCoin = coins.slice(0, -1)
-    let result = coinChange(coins.slice(0,-1), remainder)
-    
-    while(coinsUsed > 0) {
-        coinsUsed--
-        remainder += coin
-        if(remainder > amount) {
-            return -1
+    let res = Infinity;
+  
+    const find = (k, amount, count) => {
+      const coin = coins[k];
+  
+      if (k === coins.length - 1) {
+        if (amount % coin === 0) {
+          res = Math.min(res, count + ~~(amount / coin));
         }
-        result = coinChange(oneSmallerCoin, remainder)
-    } 
-    
-    if(result === -1) {
-        return -1
-    }
-
-    return coinsUsed + result
+      } else {
+        for (let i = ~~(amount / coin); i >= 0 && count + i < res; i--) { 
+          find(k + 1, amount - coin * i, count + i);
+        }
+      }
+    };
+  
+    find(0, amount, 0);
+    return res === Infinity ? -1 : res;
 }
